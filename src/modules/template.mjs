@@ -4,4 +4,4 @@ const loadTemplate = async (name) => {
     return (await readFile(`pages/${name}`)).toString()
 }
 
-export {loadTemplate}
+export {loadTemplate} 
