@@ -14,9 +14,11 @@
         {% for product in products %}
         <li>
             <h2>{{product.name}}</h2>
+            <img src="/images/{{product:image}}">
             <div>
                 {{product.price}}
             </div>
+            <a href="/buy/{{product.id}}">BUY</a>
         </li>
         
         {% endfor %}
