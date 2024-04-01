@@ -17,6 +17,10 @@ const getProducts = async () => {
     return products
 }
 
+const getProductByID = async (id) =>(await getProducts()).find ((product)=> product.id===id)
+
+
+
 const saveCart = async (cart) => {
     await writeFile("./storage/cart.json", JSON.stringify(cart, null, 2));
     return true;
@@ -29,4 +33,4 @@ const getCart = async () => {
     return cart
 }
 
-export { getProducts, saveCart, getCart }
+export { getProducts, saveCart, getCart ,getProductByID}

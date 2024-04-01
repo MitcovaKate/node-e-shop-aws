@@ -1,5 +1,5 @@
 import http from 'node:http'
-import { getProducts } from './modules/data.mjs'
+import { getProducts,getProductByID } from './modules/data.mjs'
 
 import {render} from './modules/template.mjs'
 import { readFile } from 'node:fs'
@@ -18,7 +18,8 @@ html = await readFile(`.${req.url}`)
 }
 else if(req.url.startsWith("/buy")){
   let id=parseInt(req.url.split('/').pop())
-  html=`you try to buy ${id}`
+  let product = await getProductByID(id)
+  html= await render("./pages/order.html",{product:'product'})
 }
   else {
         html=`Oops, not found ;(`
