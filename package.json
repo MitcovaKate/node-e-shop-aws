@@ -12,6 +12,7 @@
   "author": "Kate",
   "license": "ISC",
   "dependencies": {
+    "stripe": "^14.23.0",
     "twig": "^1.17.1"
   }
 }
