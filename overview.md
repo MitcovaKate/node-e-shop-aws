@@ -90,3 +90,21 @@ template
 orders.json<-----write--+--
                         |
                         stringify
+
+
+  GET----------req ?productId=1&fullName=...----->querystring.parse()
+                                                       |
+                                                       V
+                                                    data={
+                                                      id:.... <------uuidi()
+                                                      paid: <-----------false
+                                                      productId:....
+                                                      fullName
+                                                      ....
+                                                    }
+                                                    |
+                                                    V
+                                                    saveOrder()
+                                                    |
+                                                    V
+                                                    orders.json
