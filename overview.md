@@ -29,3 +29,64 @@ template
    
      +--Product 3                                   
                                          
+
+     Client
+     --------------------- req GET-------"/buy/1---->req.url 
+                                                       V
+                                                       id
+                                                       V
+                                                       V product=getProductById(id) <----data
+                                                       V    V
+                           render(order.html,{product:product})  
+                                                      V
+                                                      +
+      form<-----resHTML-------------------------------     
+      |
+      V
+      fills data
+      |
+      V
+      SUBMIT
+      V
+      name="fullName"     |
+      name="emailAdress"  | ---> /pay?fullName=John Doe&emailAdress=...-----+
+      name="phoneNumber"  |                                                 |
+                                                                            V 
+                                                                fullName=John Doe&emailAdressDoe&emailAdress   
+                                                                            | 
+                                                              querystring.parse() 
+                                                                            |   
+                                                                            V
+                                                                            {
+                                                                     fullName=John Doe&emailAdress}
+            
+                show form                       process form
+            
+              s           e                    s        e                       
+               +--req-----+                    +--req-- +
+               |          |                    |        |
+               |          V                    |        V
+  -------------X----------X---------------------X-------X                                                                         |           ^
+                                    V           |
+                                   +------------+  
+                                    id(input > form)  
+                                     window
+                                      client                                           
+
+
+ how to save
+                    parse
+                       |
+ orders.json-----read--+->[{},{}]
+                            |
+                            V
+                            .push()
+                            |
+                            V
+                            [{},{},{}]
+                            |
+                            V
+                            +
+orders.json<-----write--+--
+                        |
+                        stringify
