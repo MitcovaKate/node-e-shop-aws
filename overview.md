@@ -108,3 +108,17 @@ orders.json<-----write--+--
                                                     |
                                                     V
                                                     orders.json
+
+  stripe/gateway  
+  >payment link + redirect
+
+  app----api/info/product + price + payment link-->STRIPE   
+                                              |
+                                              +
+ <-------------url ----------------------------  
+
+client ---url--->+
+                 |
+                 pay/cancel
+                 |
+                 V

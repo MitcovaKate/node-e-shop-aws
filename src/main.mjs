@@ -4,7 +4,10 @@ import { getProducts,getProductByID, saveOrder } from './modules/data.mjs'
 
 import {render} from './modules/template.mjs'
 import { readFile } from 'node:fs'
-import {v4 as uuid} from uuid
+import {v4 as uuid} from 'uuid'
+import stripeMode from 'stripe'
+const stripe=stripeMode('sk_test_51P0sHYP3Qk5IuYwgLm0FwferKwhzFxRAWzMylL4C0of24bmg1ECMT5QvP2RkaaB55nejMBXhzCD6lluzIgIYXn7I00VnqbZDPl')
+
 const server = http.createServer(async (req,res) =>{
   res.setHeader("Content-type", "text/html" )
   
@@ -26,8 +29,28 @@ let parametrs=req.url.split("?")
 let data= querystring.parse(parametrs[1])
 data.id=uuid()
 data.payed=false
+data.productId=parseInt(data.productId)
 await saveOrder(data);
-html= 'Order saved'
+let product= await getProductByID(data.productID);
+//working with stripe
+const productStripe= await stripe.products.create({
+  name:product.name,
+});
+const price = await stripe.prices.create({
+currency:"usd",
+unit_amount:product.price * 100,
+product:productStripe.id,
+});
+const paymentLink = await stripe.paymentLinks.create({line_items:[
+  {
+    price:price.id,
+    quantity:1,
+  },
+]})
+///////////////////////////////
+
+html= `You will be rederected to stripe in 3 sec <a href="${paymentLink.url}">here</a>`;
+res.setHeader("Refresh", `0 ; URL=${paymentLink.url}`);
 }
   else {
         html=`Oops, not found ;(`
