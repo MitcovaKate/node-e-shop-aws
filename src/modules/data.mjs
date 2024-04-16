@@ -1,5 +1,6 @@
-import {readFile, writeFile} from 'node:fs/promises'
-
+import {readFile, writeFile} from 'node:fs/promises' ;
+import postgres from 'postgres';
+const sql=postgres('postgres://postgres:kate@localhost:10000/e_shop_db',{});
 // const getProducts_ = (cb) => {
 //     fs.readFile("./storage/products.json", (err, data)=> {
 //         if (err !== null) {
@@ -11,15 +12,21 @@ import {readFile, writeFile} from 'node:fs/promises'
 //     })
 // }
 
+// const getProducts = async () => {
+//     let data = await readFile("./storage/products.json")
+//     let products = JSON.parse(data.toString())
+//     return products
+// }
+
 const getProducts = async () => {
-    let data = await readFile("./storage/products.json")
-    let products = JSON.parse(data.toString())
-    return products
+    let data =await sql`SELECT * FROM products`;
+    return products ;
 }
 
-const getProductByID = async (id) =>(await getProducts()).find ((product)=> product.id===id);
 
+// const getProductByID = async (id) =>(await getProducts()).find ((product)=> product.id===id);
 
+const getProductByID = async (id) =>(await sql`SELECT * FROM products WERE id = ${id};`).shift();
 
 // const saveCart = async (cart) => {
 //     await writeFile("./storage/cart.json", JSON.stringify(cart, null, 2));
@@ -34,14 +41,17 @@ const getProductByID = async (id) =>(await getProducts()).find ((product)=> prod
 // }
 
 
+// const saveOrder = async (order) => {
+// let data=await readFile("./storage/orders.json");
+// let orders=JSON.parse(data.toString());
+// orders.push(order);
+// data=JSON.stringify(orders,null,2);
+// writeFile("./storage/orders.json", data);
+// }
+
 const saveOrder = async (order) => {
-let data=await readFile("./storage/orders.json");
-let orders=JSON.parse(data.toString());
-orders.push(order);
-data=JSON.stringify(orders,null,2);
-writeFile("./storage/orders.json", data);
-}
-
-
+    await sql`INSERT INTO orders (id,productId,fullName,emailAddress,phonenumber) 
+              VALUES(${order.id},${order.productId},${order.fullName}, ${order.emailAddress},${order.phonenumber})`;
+};
 
 export { getProducts, saveCart, getCart ,getProductByID,saveOrder}
