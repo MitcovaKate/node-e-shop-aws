@@ -13,9 +13,9 @@ const server = http.createServer(async (req,res) =>{
   
 // rendering
 let html
-if(req.url=== "/"){
+if(req.url === "/"){
 const products = await getProducts()
- html= await render('./pages/home.html',{products:'products'})
+ html= await render('./pages/home.html',{products:products})
 }
 else if(req.url.startsWith("/images")){
 html = await readFile(`.${req.url}`)
@@ -23,15 +23,17 @@ html = await readFile(`.${req.url}`)
 else if(req.url.startsWith("/buy")){
   let id=parseInt(req.url.split('/').pop())
   let product = await getProductByID(id)
-  html= await render("./pages/order.html",{product:'product'})
+  html= await render("./pages/order.html",{product:product})
 } else if(req.url.startsWith("/pay")){
-let parametrs=req.url.split("?")
-let data= querystring.parse(parametrs[1])
+let parameters=req.url.split("?");
+let data= querystring.parse(parameters[1])
+
 data.id=uuid()
 data.payed=false
 data.productId=parseInt(data.productId)
+
 await saveOrder(data);
-let product= await getProductByID(data.productID);
+let product= await getProductByID(data.productId);
 //working with stripe
 const productStripe= await stripe.products.create({
   name:product.name,
