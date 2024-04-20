@@ -1,4 +1,4 @@
-import {readFile, writeFile} from 'node:fs/promises' ;
+// import {readFile, writeFile} from 'node:fs/promises' ;
 import postgres from 'postgres';
 const sql=postgres('postgres://postgres:kate@localhost:10000/e_shop_db',{});
 // const getProducts_ = (cb) => {
@@ -19,14 +19,15 @@ const sql=postgres('postgres://postgres:kate@localhost:10000/e_shop_db',{});
 // }
 
 const getProducts = async () => {
-    let data =await sql`SELECT * FROM products`;
+    let products =await sql`SELECT * FROM products`;
     return products ;
 }
 
 
 // const getProductByID = async (id) =>(await getProducts()).find ((product)=> product.id===id);
 
-const getProductByID = async (id) =>(await sql`SELECT * FROM products WERE id = ${id};`).shift();
+const getProductByID = async (id) =>(
+    await sql`SELECT * FROM products WERE id = ${id};`).shift();
 
 // const saveCart = async (cart) => {
 //     await writeFile("./storage/cart.json", JSON.stringify(cart, null, 2));
@@ -54,4 +55,4 @@ const saveOrder = async (order) => {
               VALUES(${order.id},${order.productId},${order.fullName}, ${order.emailAddress},${order.phonenumber})`;
 };
 
-export { getProducts, saveCart, getCart ,getProductByID,saveOrder}
+export { getProducts,getProductByID,saveOrder}

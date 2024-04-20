@@ -19,4 +19,5 @@ return new Promise((resolve,regect)=>{
   
 }
 
-export {loadTemplate ,render } 
+// export {loadTemplate ,render } 
+export {render } 

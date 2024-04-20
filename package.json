@@ -13,7 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "postgres": "^3.4.4",
-    "stripe": "^14.23.0",
-    "twig": "^1.17.1"
+    "stripe": "^14.25.0",
+    "twig": "^1.17.1",
+    "uuid": "^9.0.1"
   }
 }
