@@ -65,7 +65,7 @@ res.setHeader("Refresh", `3 ; URL=${paymentLink.url}`);
 }else if(req.url.startsWith("/confirm")){
 let parameters =req.url.split("?");
 let data =querystring.parse(parameters[1]);
-confirmOrder(data.id)
+await confirmOrder(data.id)
 }
   else {
         html=`Oops, not found ;(`
