@@ -1,3 +1,4 @@
+-- Active: 1713215218300@@127.0.0.1@10000@e_shop_db
 -- data definition layer
 CREATE TABLE products (
     id int PRIMARY KEY,

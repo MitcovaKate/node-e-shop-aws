@@ -48,11 +48,22 @@ const paymentLink = await stripe.paymentLinks.create({line_items:[
     price:price.id,
     quantity:1,
   },
-]})
+],
+after_completion:{
+  redirect:{
+    url:`http://localhost:3000/confirm?id=${data.id}`,
+  },
+  type:"redirect"
+},
+
+})
 ///////////////////////////////
 
 html= `You will be rederected to stripe in 3 sec <a href="${paymentLink.url}">here</a>`;
-res.setHeader("Refresh", `0 ; URL=${paymentLink.url}`);
+res.setHeader("Refresh", `3 ; URL=${paymentLink.url}`);
+}else if(req.url.startsWith("/confirm")){
+
+
 }
   else {
         html=`Oops, not found ;(`
