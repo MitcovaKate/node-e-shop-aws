@@ -39,8 +39,8 @@ const productStripe= await stripe.products.create({
   name:product.name,
 });
 const price = await stripe.prices.create({
-currency:"usd",
-unit_amount:product.price * 100,
+currency:product.price.currency,
+unit_amount:product.price_amount * 100,
 product:productStripe.id,
 });
 const paymentLink = await stripe.paymentLinks.create({line_items:[
