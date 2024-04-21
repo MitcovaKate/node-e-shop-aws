@@ -1,6 +1,6 @@
 import http from 'node:http'
 import querystring from 'node:querystring'
-import { getProducts,getProductByID, saveOrder } from './modules/data.mjs'
+import { getProducts,getProductByID, saveOrder,confirmOrder} from './modules/data.mjs'
 
 import {render} from './modules/template.mjs'
 import { readFile } from 'node:fs'
@@ -61,9 +61,11 @@ after_completion:{
 
 html= `You will be rederected to stripe in 3 sec <a href="${paymentLink.url}">here</a>`;
 res.setHeader("Refresh", `3 ; URL=${paymentLink.url}`);
+
 }else if(req.url.startsWith("/confirm")){
-
-
+let parameters =req.url.split("?");
+let data =querystring.parse(parameters[1]);
+confirmOrder(data.id)
 }
   else {
         html=`Oops, not found ;(`
