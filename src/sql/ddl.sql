@@ -1,6 +1,6 @@
 -- Active: 1713215218300@@127.0.0.1@10000@e_shop_db
 -- data definition layer
-CREATE TABLE products (
+CREATE TABLE products (e
     id int PRIMARY KEY,
     name varchar(100) not null,
     price_amount int not null,
