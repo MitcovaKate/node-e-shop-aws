@@ -33,7 +33,7 @@ data.payed=false
 data.productId=parseInt(data.productId)
 
 await saveOrder(data);
-let product= await getProductByID(data.productId);
+let product= await getProductByID(data.productid);
 //working with stripe
 const productStripe= await stripe.products.create({
   name:product.name,
@@ -43,7 +43,8 @@ currency:product.price.currency,
 unit_amount:product.price_amount * 100,
 product:productStripe.id,
 });
-const paymentLink = await stripe.paymentLinks.create({line_items:[
+const paymentLink = await stripe.paymentLinks.create({
+  line_items:[
   {
     price:price.id,
     quantity:1,

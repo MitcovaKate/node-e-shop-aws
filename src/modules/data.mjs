@@ -51,12 +51,12 @@ const getProductByID = async (id) =>(
 // }
 
 const saveOrder = async (order) => {
-    await sql`INSERT INTO orders (id,productId,fullName,emailAddress,phonenumber) 
-              VALUES(${order.id},${order.productId},${order.fullName}, ${order.emailAddress},${order.phonenumber})`;
+    await sql`INSERT INTO orders (id,productid,fullname,emailadress,phonenumber) 
+              VALUES(${order.id},${order.productId},${order.fullname}, ${order.emailadress},${order.phonenumber})`;
 };
 
 
 const confirmOrder = async (order) => {
-    await sql`UPDATE orders SET payed =true WHERE id = ${id};`;
+    await sql`UPDATE orders SET payed = true WHERE id = ${id};`;
 };
 export { getProducts,getProductByID,saveOrder,confirmOrder}
