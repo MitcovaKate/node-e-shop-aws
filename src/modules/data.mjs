@@ -52,7 +52,7 @@ const getProductByID = async (id) =>(
 
 const saveOrder = async (order) => {
     await sql`INSERT INTO orders (id,productid,fullname,emailadress,phonenumber) 
-              VALUES(${order.id},${order.productId},${order.fullname}, ${order.emailadress},${order.phonenumber})`;
+              VALUES(${order.id},${order.productId},${order.fullName}, ${order.emailAdress},${order.phoneNumber})`;
 };
 
 

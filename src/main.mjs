@@ -52,7 +52,7 @@ const paymentLink = await stripe.paymentLinks.create({
 ],
 after_completion:{
   redirect:{
-    url:`http://localhost:3000/confirm?id=${data.id}`,
+    url:`http://localhost:4000/confirm?id=${data.id}`,
   },
   type:"redirect"
 },
@@ -77,5 +77,5 @@ await confirmOrder(data.id)
 })
 
 
-server.listen("3000", "localhost")
+server.listen("4000", "localhost")
 
