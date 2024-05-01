@@ -63,19 +63,23 @@ after_completion:{
 html= `You will be rederected to stripe in 3 sec <a href="${paymentLink.url}">here</a>`;
 res.setHeader("Refresh", `3 ; URL=${paymentLink.url}`);
 
-}else if(req.url.startsWith("/confirm")){
-let parameters =req.url.split("?");
-let data =querystring.parse(parameters[1]);
-await confirmOrder(data.id)
-}
-  else {
-        html=`Oops, not found ;(`
-        res.statusCode = 404
-        
-    }
-    res.end(html)
-})
+} else if (req.url.startsWith("/confirm")) {
+  let parameters = req.url.split("?");
+  let {id} = querystring.parse(parameters[1])
+  await confirmOrder(id)
+  await sendConfirmationEmail(id)
+  // HW: show a payment succes / order places message
+  html = `<h1>Payment Successful!</h1>
+          <p>Your order has been successfully placed. Thank you for your purchase!</p>
+          <p><a href="/">Home</a></p>
+        `;
+} else {
+  html = `Oops, not found ;(`
+  res.statusCode = 404
+} 
+
+res.end(html)
+} )
 
 
-server.listen("4000", "localhost")
-
+server.listen("3000", "localhost")
